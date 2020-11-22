@@ -1,0 +1,7 @@
+
+#### MATCH (n) RETURN n
+Matches and returns all nodes in the graph.
+
+#### MATCH (n) RETURN n LIMIT 5
+Matches all nodes in the graph but returns only 5.
+

@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>Graph Visualization Vis.js</title>
+    <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
+    <script
+          src="https://code.jquery.com/jquery-3.2.1.min.js"
+          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+          crossorigin="anonymous"></script>
+  </head>
+  <script>
+
+    function draw(){
+      //1-Connect to Neo4j instance to get live data
+    var config= {
+      container_id:"viz",
+      server_url:" bolt://localhost:7687",
+      server_user:"neo4j",
+      server_password:"1234567",
+
+      //2-User specify labels and properties to be displayed
+      labels:{
+        // 6-Specify node property for node size, Node size is proportional to the Character's pagerank score
+        "Character":{
+          "caption":"name",
+          "size":"pagerank",
+          //5-Specify node property for community / clustering,  Node color will be determined by the community property in Character
+          "community":"community"
+        }
+
+      },
+      relationships: {
+        //4-Specify edge property for edge thickness, Thickness will be proportional to the weight property on the INTERACTS relationship.
+        "INTERACTS": {
+          "thickness": "weight",
+          "caption": true }
+      },
+      //3-User specify Cypher query to populate
+      initial_cypher:"MATCH (n)-[r:INTERACTS]->(m) RETURN * limit 50",
+      arrows:true,
+        // Can make hierarchical for the result, The default is directed
+      hierarchical:true,
+      hierarchical_sort_method:"hubsize",
+        //Help u in debugging errors, Error messages are easy to understand
+        console_debug:true
+      }
+      viz = new NeoVis.default(config);
+            viz.render();
+            console.log(viz);
+        }
+    </script>
+</head>
+<body onload="draw()">
+<div id="viz"></div>
+
+
+Cypher query: <textarea rows="4" cols=50 id="cypher"></textarea><br>
+<input type="submit" value="Submit" id="reload">
+
+
+</body>
+
+<script>
+    $("#reload").click(function() {
+        var cypher = $("#cypher").val();
+        if (cypher.length > 3) {
+            viz.renderWithCypher(cypher);
+        } else {
+            console.log("reload");
+            viz.reload();
+        }
+    });
+</script>
+</html>

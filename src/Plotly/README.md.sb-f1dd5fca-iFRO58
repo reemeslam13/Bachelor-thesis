@@ -1,0 +1,32 @@
+Development
+===
+
+Prerequisites:
+---
+
+1-Download Anaconda-Navigator for Jupyter notebook.
+
+2-In the terminal Run this lines
+
+	1.	pip install neo4j
+
+	2.	pip install cufflinks
+
+	3.	pip install ipython
+
+	4.	pip install --user numpy scipy
+
+	5.	pip install jupyter_dashboards
+
+	6.	pip install plotly
+
+
+Structure:
+===
+
+The whole code is just in plotly.py file you will find that the code is divided to Seven parts. The first part is the list of imported packages and setting the environment. The rest of The Six parts each is for a different query. Explanation of each part you will find it in the code. The Six parts are independent.
+
+Run code:
+---
+
+Open Anaconda. you will find Jupiter Notebook icon click launch. After Launching jupiter Notebook will open upload Plotly.ipynb Once the file is open run each part and you will see the resulted Graphs.
